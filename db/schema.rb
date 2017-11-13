@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171113234142) do
+ActiveRecord::Schema.define(version: 20171113235600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "answers", force: :cascade do |t|
+    t.text "text"
+    t.bigint "question_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "total", default: 0
+    t.index ["question_id"], name: "index_answers_on_question_id"
+    t.index ["user_id"], name: "index_answers_on_user_id"
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.string "text"
+    t.bigint "user_id"
+    t.integer "commentable_id"
+    t.string "commentable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_comments_on_user_id"
+  end
 
   create_table "questions", force: :cascade do |t|
     t.text "title", null: false
@@ -21,6 +42,8 @@ ActiveRecord::Schema.define(version: 20171113234142) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "total", default: 0
+    t.integer "correct_answer"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -30,7 +53,21 @@ ActiveRecord::Schema.define(version: 20171113234142) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "bio"
   end
 
+  create_table "votes", force: :cascade do |t|
+    t.bigint "user_id"
+    t.integer "votable_id"
+    t.string "votable_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_votes_on_user_id"
+  end
+
+  add_foreign_key "answers", "questions"
+  add_foreign_key "answers", "users"
+  add_foreign_key "comments", "users"
   add_foreign_key "questions", "users"
+  add_foreign_key "votes", "users"
 end
