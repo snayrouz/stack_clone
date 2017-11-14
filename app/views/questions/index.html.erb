@@ -12,7 +12,14 @@
         <hr>
         <%=question.total%> score || <%= question.comments.length%> comments ||
             <%= link_to question.title, question_path(question.id) %><% if question.user_id == session[:user_id] %>
-        | <%=link_to "Update Question", edit_question_path(question.id)%> | <%=link_to "Delete Question", question_path(question.id), method: 'delete' %><% end %>
+            <hr>
+            <p class="tags">
+            Tags:
+            <% @questions.tags.each do |tag| %>
+              <%= link_to tag.name, tag_path(tag), class: "tag" %>
+            <% end %>
+          </p>
+        <%=link_to "Update Question", edit_question_path(question.id)%> | <%=link_to "Delete Question", question_path(question.id), method: 'delete' %><% end %>
       <% end %>
     </div>
     <div id="ask" class="col-md-4">

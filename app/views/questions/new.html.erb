@@ -1,11 +1,13 @@
 <div class="container">
   <h2>Stack Overflow</h2>
   <div class="row">
-    <div class="col-md-8">
+    <div class="col-md-8 tag">
       <%= form_for @question, url:questions_path do |q| %>
         <%= q.label :title %>
         <%= q.text_field :title, :size => '77x10' %><br><br>
         <%= q.text_area :text, :size => '80x15' %><br><br>
+        <%= q.label :tag_list %><br/>
+        <%= q.text_field :tag_list, class: "tag" %>
         <%= q.submit "Post Your Question", class: 'btn btn-primary' %>
       <% end %>
     </div>
