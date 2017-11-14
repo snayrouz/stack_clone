@@ -1,2 +1,144 @@
-<h1>Questions#show</h1>
-<p>Find me in app/views/questions/show.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-9">
+      <h1><%= @question.title %></h1>
+    </div>
+    <div class="col-md-3">
+      <h5>Posted By: <%= @question.user.username %></h5>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-1">
+      <%= link_to "", question_votes_path(@question.id, direction: "up", type: "question"), method: 'post', class: "glyphicon glyphicon-chevron-up" %>
+      <p><%=@question.total%> votes</p>
+      <%= link_to "", question_votes_path(@question.id, direction: "down", type: "question"), method: 'post', class: "glyphicon glyphicon-chevron-down" %>
+    </div>
+    <div class="col-md-7">
+      <h4><%= @question.text %></h4>
+    </div>
+    <div id="ask" class="col-md-4">
+      <h2>How to Format:</h2>
+      <p>► put returns between paragraphs</p>
+      <p>► indent code by 4 spaces</p>
+      <p>► basic HTML also allowed</p>
+      <p>► quote by placing " at start of line</p><br>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-1"></div>
+    <div class="col-md-8">
+      <div class="comments">
+        <% @question.comments.each do |c| %>
+         <%= render partial: 'comments/show', locals: {comment: c, target: @question} %>
+        <% end %>
+      </div>
+      <% if session[:user_id] != nil %>
+        <%= render partial: "comments/question_comment", locals: {question: @question, comment: @comment} %>
+      <%else %>
+        You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add a comment!
+      <%end%>
+    </div>
+  </div>
+</div>
+
+<hr>
+<div class="container">
+  <h5> <%= @question.answers.count %> Answers </h5>
+</div>
+
+<div class="container">
+  <% @question.answers.order(total: :desc).each do |ans| %>
+  <% if @question.correct_answer == ans.id %>
+    <div class="row">
+      <div class="col-md-1"></div>
+      <div class="col-md-8">
+        <p id="accepted" class="glyphicon glyphicon-ok"></p>
+        <%= render partial: "answers/show", locals: {answer: ans} %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-2"></div>
+      <div class="col-md-8"><br>
+        <div class="comments">
+          <% ans.comments.each do |c| %>
+            <%= render partial: 'comments/show', locals: {comment: c, target: ans} %>
+          <% end %>
+        </div>
+        <% if session[:user_id] != nil %>
+          <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
+        <% else %>
+          <p>You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add a comment!</p><br>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
+
+<hr>
+
+<div class="container">
+  <% @question.answers.order(total: :desc).each do |ans| %>
+    <% if @question.correct_answer != ans.id %>
+      <div class="row">
+        <div class="col-md-1"></div>
+        <div class="col-md-6">
+          <%= render partial: "answers/show", locals: {answer: ans} %>
+        </div>
+      </div>
+        <div class="row">
+          <div class="col-md-2"></div>
+          <div class="col-md-8"><br>
+            <div class="comments">
+              <% ans.comments.each do |c| %>
+                <%= render partial: 'comments/show', locals: {comment: c, target: ans} %>
+              <% end %>
+            </div>
+            <% if session[:user_id] != nil %>
+              <%= render partial: "comments/answer_comment", locals: { answer: ans, comment: @comment } %>
+            <%else %>
+              <p>You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add a comment!</p><br>
+            <%end%>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
+
+<hr>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <h4>Your Answer:</h4>
+      <% if session[:user_id] == nil %>
+        <p>You must <%= link_to 'login', login_path %> or <%= link_to 'sign up', new_user_path %> to add an answer!</p><br>
+      <%else%>
+          <%= render partial: "answers/new", locals: {answer: @answer, question: @question} %>
+      <% end %>
+    </div>
+    <div class="col-md-6">
+      <h4>When answering a question:</h4>
+      <div id="ask"><br>
+        <ul>
+          <li class="glyphicon glyphicon-wrench">  Please be as ACTIONABLE as possible giving reference to specific steps a user can take to resolve the question.</li>
+          <li class="glyphicon glyphicon-screenshot">  Please be as SPECIFIC as possible, giving examples, links, or references for a user to have in resolving the question</li>
+          <li class="glyphicon glyphicon-heart">  Please be KIND in your answer. Do not be a troll. Do not scoff at bad questions. Help people find answers to their problems</li>
+        </ul><br>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<div class="container">
+  <%= link_to "Return to Questions!", questions_path%>
+</div>
