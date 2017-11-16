@@ -13,10 +13,10 @@ describe "User logs in to chat" do
 
     expect(current_path).to eq(questions_path)
     expect(page).to have_link('Logout', href: '/logout')
-    expect(page).to have_button("Chat")
+    expect(page).to have_link("Chat")
     click_on "Chat"
 
-    expect(current_path).to eq(chat_path)
+    expect(current_path).to eq(chat_index_path)
 
     expect(page).to have_content("Welcome to Turing Chat")
     expect(page).to have_content("Code of Conduct")

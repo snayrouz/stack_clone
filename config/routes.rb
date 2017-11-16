@@ -20,4 +20,5 @@ Rails.application.routes.draw do
   end
 
   resources :tags
+  resources :chat, only: [:index]
 end

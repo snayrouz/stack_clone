@@ -1,16 +1,15 @@
 <div class="container">
   <div class="jumbotron">
-    <h1>Stack Overflow</h1>
+    <h1>Turing Overflow</h1>
     <h3>Click a question to view it or create your own!</h3>
-    <p>It's as easy as logging in or signing up. Join today to access a community of questions and answers.</p>
-    <%= link_to "Ask a Question!", new_question_path, class: "btn btn-primary" %>
+    <p>It's as easy as logging in or signing up. Join today to access the Turing community of questions and answers.</p>
+    <%= link_to "Ask a Question!", new_question_path, class: "btn btn-primary" %><hr>
     <% if session[:user_id] && current_user%>
       <ul class="nav navbar-nav pull-right">
+          <li><%= link_to 'Chat', chat_index_path, class: "btn btn-primary" %></li><hr>
+          <li><%= link_to 'Tags', tags_path, class: "btn btn-primary" %></li><hr>
+        <li><%= link_to 'Signed in as ' + current_user.username, user_path(current_user.id) %></li><hr>
         <li><%= link_to 'Logout', logout_path, method: 'delete' %></li>
-        <li class="">
-          <%= link_to 'Signed in as ' + current_user.username, user_path(current_user.id) %>
-          <li><%= link_to 'Tags', tags_path %></li>
-        </li>
       </ul>
     <% else %>
       <ul class="nav navbar-nav">
