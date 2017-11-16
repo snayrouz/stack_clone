@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   get '/login' => 'sessions#new'
   post '/login' => 'sessions#create'
   delete '/logout' => 'sessions#destroy'
+  post '/tokens' => "tokens#create"
 
   resources :users
 
@@ -19,5 +20,5 @@ Rails.application.routes.draw do
   end
 
   resources :tags
-
+  resources :chat, only: [:index]
 end

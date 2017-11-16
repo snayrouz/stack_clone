@@ -16,7 +16,7 @@ def add_comments(target, number_of_comments)
   user_pool.delete(target.user_id)
 
   number_of_comments.times do
-    comment = target.comments.build(text: Faker::Lorem.sentences(rand(1..5)).join(" "), user_id: user_pool.sample)
+    comment = target.comments.build(text: Faker::RickAndMorty.quote(rand(1..5)).join(" "), user_id: user_pool.sample)
     comment.save
   end
 end
@@ -44,7 +44,7 @@ def add_answers(question, number_of_answers)
   user_pool.delete(question.user_id)
 
   number_of_answers.times do
-    answer = question.answers.build(text: Faker::Lorem.sentences(rand(1..5)).join(" "), user_id: user_pool.sample)
+    answer = question.answers.build(text: Faker::Simpsons.quote(rand(1..5)).join(" "), user_id: user_pool.sample)
     answer.save
 
     add_comments(answer, rand(1..5))
@@ -53,8 +53,8 @@ def add_answers(question, number_of_answers)
 end
 
 number_of_users.times do
-  first_name = Faker::Name.first_name
-  User.create(username: first_name, email: "#{first_name}@example.com", password: '123', bio: Faker::Lorem.paragraphs(rand(1..5)).join("\n"))
+  first_name = Faker::Simpsons.character
+  User.create(username: first_name, email: "#{first_name}@example.com", password: '123', bio: Faker::ChuckNorris.fact(rand(1..5)).join("\n"))
 end
 
 User.all.each do |user|
