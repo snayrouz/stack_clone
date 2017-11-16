@@ -3,30 +3,15 @@
   <head>
     <title>StackClone</title>
     <%= csrf_meta_tags %>
-
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
-    <div id="headnav" class="collapse navbar-collapse">
-        <div class="navbar-brand">
-          <%= link_to 'Stack Overflow', questions_path %>
-        </div>
-        <% if session[:user_id] && current_user%>
-          <ul class="nav navbar-nav pull-right">
-            <li><%= link_to 'Logout', logout_path, method: 'delete' %></li>
-            <li class="">
-              <%= link_to 'Signed in as ' + current_user.username, user_path(current_user.id) %>
-            </li>
-          </ul>
-        <% else %>
-          <ul class="nav navbar-nav">
-            <li><%= link_to 'Login', login_path %></li>
-            <li><%= link_to 'Sign Up', new_user_path %></li>
-          </ul>
-        <% end %>
-      </div>
+    <%= render partial: 'layouts/navbar' %>
       <%= yield %>
-  </body>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>  </body>
 </html>
