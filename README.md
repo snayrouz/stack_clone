@@ -1,24 +1,10 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a side project of mine. I'm working on creating a Stack Overflow clone but specifically for the Turing Community.
 
-Things you may want to cover:
+# What You'll Need
+* You'll need to create your own Twilio Programmable Chat `ACCOUNT_SID` , `IPM_SERVICE_ID` , `API_KEY_SECRET`, `API_KEY_SID` for the chat box to work.
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+### Setup
+* Clone down or fork this repo
+* Run `rake db: {create, migrate, seed}`
