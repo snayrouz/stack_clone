@@ -26,9 +26,4 @@ RSpec.describe Question, type: :model do
     expect(question.user_id).to eq(dummy.id)
   end
 
-# comment.commentable test the polymorphic association
-  xit "should be reffered to by its comment" do
-    # expect(comment.commentable).to eq(question)
-  end
-
 end
