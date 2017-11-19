@@ -1,6 +1,24 @@
-<h1 class="tags">All Tags</h1>
-<ul>
-  <% @tags.each do |tag| %>
-  <li class: "tags">  <%= tag.name %></li>
-  <% end %>
-</ul>
+<h1>Search Questions by Tags</h1>
+
+	<h3><%= @questions.total_questions %>Total Questions</h3>
+	<% @questions.tags.each_with_index do |question, index| %>
+	<div class="question-<%= index %>">
+    <ul>
+      <div class="title">
+  	  <li>Question: <%= question.title %></li>
+  	  </div>
+  	  <div class="text">
+  	   <li><%= question.text %></li>
+  	  </div>
+  	  <div class="user_id">
+  	   <li>Asked By: <%= question.user_id %> miles</li>
+  	  </div>
+  	  <div class="correct_answer">
+  	    <li>Correct Answer: <%= question.correct_answer %></li>
+  	  </div>
+  	  <div class="created_at">
+  	   <li>Day asked: <%= question.created_at %></li>
+  	  </div>
+    </ul>
+	</div>
+<% end %>
