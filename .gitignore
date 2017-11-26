@@ -18,3 +18,7 @@
 
 .byebug_history
 /config/env.yml
+/config/application.yml
+
+# Ignore application configuration
+/config/application.yml
